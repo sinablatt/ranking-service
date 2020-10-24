@@ -13,26 +13,26 @@ import java.util.Optional;
 @RequestMapping("/rank")
 public class RankController {
 
-    @Autowired
-    RankService rankService;
+  @Autowired
+  RankService rankService;
 
-    @GetMapping({"/{id}", "/{id}/"})
-    public ResponseEntity<Optional<Rank>> findById(@PathVariable("id") String id) {
-        return new ResponseEntity<>(rankService.findById(id), HttpStatus.OK);
-    }
+  @GetMapping({"/{id}", "/{id}/"})
+  public ResponseEntity<Optional<Rank>> findById(@PathVariable("id") String id) {
+    return new ResponseEntity<>(rankService.findById(id), HttpStatus.OK);
+  }
 
-    @GetMapping({"/", ""})
-    public ResponseEntity<List<Rank>> findAll(){
-        return new ResponseEntity<>(rankService.findAll(), HttpStatus.OK);
-    }
+  @GetMapping({"/", ""})
+  public ResponseEntity<List<Rank>> findAll() {
+    return new ResponseEntity<>(rankService.findAll(), HttpStatus.OK);
+  }
 
-    @GetMapping({"/category/{categoryName}", "/category/{categoryName}/"})
-    public ResponseEntity<List<Rank>> findByCategory(@PathVariable("categoryName") String categoryName){
-        return new ResponseEntity<>(rankService.findByCategory(categoryName), HttpStatus.OK);
-    }
+  @GetMapping({"/category/{categoryName}", "/category/{categoryName}/"})
+  public ResponseEntity<List<Rank>> findByCategory(@PathVariable("categoryName") String categoryName) {
+    return new ResponseEntity<>(rankService.findByCategory(categoryName), HttpStatus.OK);
+  }
 
-    @PostMapping("/create")
-    public ResponseEntity<Rank> save(@RequestBody Rank rank) {
-        return new ResponseEntity<>(rankService.save(rank), HttpStatus.CREATED);
-    }
+  @PostMapping({"/", ""})
+  public ResponseEntity<Rank> save(@RequestBody Rank rank) {
+    return new ResponseEntity<>(rankService.save(rank), HttpStatus.CREATED);
+  }
 }

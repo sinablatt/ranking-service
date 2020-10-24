@@ -9,6 +9,6 @@ import java.util.List;
 @Repository
 public interface RankRepository extends JpaRepository<Rank, String> {
 
-    @Query(value = "SELECT * FROM rank WHERE category_id= ?1", nativeQuery = true)
-    List<Rank> findByCategory(String categoryId);
+  @Query(value = "SELECT * FROM rank WHERE category_id= ?1", nativeQuery = true)
+  List<Rank> findByCategory(String categoryId);
 }

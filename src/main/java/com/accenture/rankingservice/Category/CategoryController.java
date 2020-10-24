@@ -15,17 +15,17 @@ import java.util.List;
 @RequestMapping("/category")
 public class CategoryController {
 
-    @Autowired
-    CategoryService service;
+  @Autowired
+  CategoryService service;
 
-    @PostMapping("/saveAll")
-    public ResponseEntity<Void> saveAll(@RequestBody List<Category> categories) {
-        service.saveAll(categories);
-        return new ResponseEntity<>(HttpStatus.CREATED);
-    }
+  @PostMapping("/all")
+  public ResponseEntity<Void> saveAll(@RequestBody List<Category> categories) {
+    service.saveAll(categories);
+    return new ResponseEntity<>(HttpStatus.CREATED);
+  }
 
-    @GetMapping("/getAll")
-    public ResponseEntity<List<Category>> getAll(){
-        return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
-    }
+  @GetMapping("/all")
+  public ResponseEntity<List<Category>> getAll() {
+    return new ResponseEntity<>(service.findAll(), HttpStatus.OK);
+  }
 }
