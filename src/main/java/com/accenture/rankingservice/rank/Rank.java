@@ -25,6 +25,7 @@ public class Rank {
   @JoinColumn(name = "category_id", referencedColumnName = "id")
   private Category category;
 
+
   public String getId() {
     return id;
   }

@@ -5,8 +5,7 @@ import com.accenture.rankingservice.Category.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class RankServiceImpl implements RankService {
@@ -27,7 +26,9 @@ public class RankServiceImpl implements RankService {
 
   public List<Rank> findByCategory(String categoryName) {
     Category category = categoryRepository.findByName(categoryName);
-    return repository.findByCategory(category.getId());
+    List<Rank> ranks = repository.findByCategory(category.getId());
+    Collections.sort(ranks, Comparator.comparingInt(Rank::getScore));
+    return ranks;
   }
 
   @Override
