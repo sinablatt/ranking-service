@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
+@CrossOrigin(origins="*")
 @RequestMapping("/rank")
 public class RankController {
 
