@@ -28,6 +28,7 @@ public class RankServiceImpl implements RankService {
     Category category = categoryRepository.findByName(categoryName);
     List<Rank> ranks = repository.findByCategory(category.getId());
     Collections.sort(ranks, Comparator.comparingInt(Rank::getScore));
+    Collections.reverse(ranks);
     return ranks;
   }
 
