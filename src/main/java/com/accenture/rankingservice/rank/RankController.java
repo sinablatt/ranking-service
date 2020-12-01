@@ -32,6 +32,11 @@ public class RankController {
     return new ResponseEntity<>(rankService.findByCategory(categoryName), HttpStatus.OK);
   }
 
+  @GetMapping({"/isinuse/{username}", "/isinuse/{username}/"})
+  public ResponseEntity<Boolean> isAlreadyInUse(@PathVariable("username") String username) {
+    return new ResponseEntity<>(rankService.isAlreadyInUse(username), HttpStatus.OK);
+  }
+
   @PostMapping({"/", ""})
   public ResponseEntity<Rank> save(@RequestBody Rank rank) {
     return new ResponseEntity<>(rankService.save(rank), HttpStatus.CREATED);

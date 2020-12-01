@@ -20,6 +20,11 @@ public class RankServiceImpl implements RankService {
     return repository.findById(id);
   }
 
+  @Override
+  public boolean isAlreadyInUse(String username) {
+    return repository.existsByUsername(username);
+  }
+
   public List<Rank> findAll() {
     return repository.findAll();
   }
