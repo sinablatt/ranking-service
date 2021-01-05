@@ -31,10 +31,13 @@ public class RankServiceImpl implements RankService {
 
   public List<Rank> findByCategory(String categoryName) {
     Category category = categoryRepository.findByName(categoryName);
-    List<Rank> ranks = repository.findByCategory(category.getId());
-    Collections.sort(ranks, Comparator.comparingInt(Rank::getScore));
-    Collections.reverse(ranks);
-    return ranks;
+    if (category != null) {
+      List<Rank> ranks = repository.findByCategory(category.getId());
+      Collections.sort(ranks, Comparator.comparingInt(Rank::getScore));
+      Collections.reverse(ranks);
+      return ranks;
+    }
+    return new ArrayList<>();
   }
 
   @Override
