@@ -1,5 +1,7 @@
 package com.accenture.rankingservice.rank;
 
+import com.accenture.rankingservice.Category.Category;
+import com.accenture.rankingservice.Category.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,12 +12,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@CrossOrigin(origins="*")
+@CrossOrigin(origins = "*")
 @RequestMapping("/rank")
 public class RankController {
 
   @Autowired
   RankService rankService;
+  CategoryService categoryService;
 
   @GetMapping({"/{id}", "/{id}/"})
   public ResponseEntity<Optional<Rank>> findById(@PathVariable("id") String id) {

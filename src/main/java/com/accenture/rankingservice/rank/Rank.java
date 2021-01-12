@@ -25,6 +25,14 @@ public class Rank {
   @JoinColumn(name = "category_id", referencedColumnName = "id")
   private Category category;
 
+  public Rank() {
+  }
+
+  public Rank(String username, int score, Category category) {
+    this.username = username;
+    this.score = score;
+    this.category = category;
+  }
 
   public String getId() {
     return id;
