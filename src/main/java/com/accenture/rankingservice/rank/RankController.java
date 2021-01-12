@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@CrossOrigin
+@CrossOrigin(origins="*")
 @RequestMapping("/rank")
 public class RankController {
 
@@ -43,5 +43,10 @@ public class RankController {
     Category category = categoryService.findByName(categoryName);
     rank.setCategory(category);
     return new ResponseEntity<>(rankService.save(rank), HttpStatus.CREATED);
+  }
+
+  @GetMapping({"/isinuse/{username}", "/isinuse/{username}/"})
+  public ResponseEntity<Boolean> isAlreadyInUse(@PathVariable("username") String username) {
+    return new ResponseEntity<>(rankService.isAlreadyInUse(username), HttpStatus.OK);
   }
 }

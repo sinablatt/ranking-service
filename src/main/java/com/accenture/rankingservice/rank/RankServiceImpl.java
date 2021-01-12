@@ -5,40 +5,51 @@ import com.accenture.rankingservice.Category.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class RankServiceImpl implements RankService {
 
-    @Autowired
-    RankRepository repository;
+  @Autowired
+  RankRepository repository;
 
-    @Autowired
-    CategoryRepository categoryRepository;
+  @Autowired
+  CategoryRepository categoryRepository;
 
-    public Optional<Rank> findById(String id) {
-        return repository.findById(id);
+  public Optional<Rank> findById(String id) {
+    return repository.findById(id);
+  }
+
+  @Override
+  public boolean isAlreadyInUse(String username) {
+    return repository.existsByUsername(username);
+  }
+
+  public List<Rank> findAll() {
+    return repository.findAll();
+  }
+
+  public List<Rank> findByCategory(String categoryName) {
+    Category category = categoryRepository.findByName(categoryName);
+    if (category != null) {
+      List<Rank> ranks = repository.findByCategory(category.getId());
+      Collections.sort(ranks, Comparator.comparingInt(Rank::getScore));
+      Collections.reverse(ranks);
+      return ranks;
     }
+    return new ArrayList<>();
+  }
 
-    public List<Rank> findAll() {
-        return repository.findAll();
-    }
-
-    public List<Rank> findByCategory(String categoryName) {
-        Category category = categoryRepository.findByName(categoryName);
-        return repository.findByCategory(category.getId());
-    }
-
-    @Override
-    public Rank save(Rank rank) {
-        List<Rank> ranksByCategory = repository.findByCategory(rank.getCategory().getName());
-        for (Rank iterativeRank : ranksByCategory) {
-            if (iterativeRank.getUsername().equals(rank.getUsername())) {
-                rank.setId(iterativeRank.getId());
-                return repository.save(rank);
-            }
-        }
+  @Override
+  public Rank save(Rank rank) {
+    List<Rank> ranksByCategory = repository.findByCategory(rank.getCategory().getId());
+    for (Rank iterativeRank : ranksByCategory) {
+      if (iterativeRank.getUsername().equals(rank.getUsername())) {
+        rank.setId(iterativeRank.getId());
+        rank.setScore(rank.getScore() + iterativeRank.getScore());
         return repository.save(rank);
+      }
     }
+    return repository.save(rank);
+  }
 }
