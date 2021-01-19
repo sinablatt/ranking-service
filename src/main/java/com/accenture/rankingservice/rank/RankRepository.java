@@ -13,4 +13,5 @@ public interface RankRepository extends JpaRepository<Rank, String> {
   List<Rank> findByCategory(String categoryId);
 
   boolean existsByUsername(String username);
+
 }

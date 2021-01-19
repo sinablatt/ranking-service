@@ -13,4 +13,6 @@ public interface RankService {
   List<Rank> findByCategory(String categoryName);
 
   Rank save(Rank rank);
+
+  void deleteAtMidnight();
 }

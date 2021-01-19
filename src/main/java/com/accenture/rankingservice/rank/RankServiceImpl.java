@@ -3,6 +3,7 @@ package com.accenture.rankingservice.rank;
 import com.accenture.rankingservice.Category.Category;
 import com.accenture.rankingservice.Category.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -51,5 +52,11 @@ public class RankServiceImpl implements RankService {
       }
     }
     return repository.save(rank);
+  }
+
+  @Override
+  @Scheduled(cron = "0 0 0 ? * *")
+  public void deleteAtMidnight(){
+    repository.deleteAll();
   }
 }
